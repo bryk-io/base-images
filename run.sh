@@ -34,22 +34,17 @@ function helm_install() {
   helm status ${PLUGIN_DEPLOYER_HELM_RELEASE_NAME} 2> /dev/null
   if [ $? -eq 0 ]; then
     echo "=== upgrading existing installation"
-    helm upgrade \
-    -f /root/values.yaml \
-    --reuse-values \
-    --debug \
-    --version ${DRONE_TAG##v} \
-    --wait \
-    ${PLUGIN_DEPLOYER_HELM_RELEASE_NAME} ./helm/*
   else
     echo "=== running new installation"
-    helm install \
-    -f /root/values.yaml \
-    --debug \
-    --version ${DRONE_TAG##v} \
-    --wait \
-    ${PLUGIN_DEPLOYER_HELM_RELEASE_NAME} ./helm/*
   fi
+  helm upgrade \
+  -f /root/values.yaml \
+  --install \
+  --reuse-values \
+  --debug \
+  --version ${DRONE_TAG##v} \
+  --wait \
+  ${PLUGIN_DEPLOYER_HELM_RELEASE_NAME} ./helm/*
 }
 
 # verify source is a tagged release on the master branch
