@@ -1,5 +1,5 @@
 # Drone Deployer
-[![Version](https://img.shields.io/github/tag/bryk-io/drone-deployer.svg)](https://github.com/bryk-io/go-vanity/releases)
+[![Version](https://img.shields.io/github/tag/bryk-io/drone-deployer.svg)](https://github.com/bryk-io/drone-deployer/releases)
 [![Software License](https://img.shields.io/badge/license-BSD3-red.svg)](LICENSE)
 
 
