@@ -1,5 +1,6 @@
 # Drone Deployer
-[![Build Status](https://drone.bryk.io/api/badges/bryk-io/drone-deployer/status.svg)](https://drone.bryk.io/bryk-io/drone-deployer)
+[![Version](https://img.shields.io/github/tag/bryk-io/drone-deployer.svg)](https://github.com/bryk-io/go-vanity/releases)
+[![Software License](https://img.shields.io/badge/license-BSD3-red.svg)](LICENSE)
 
 
 The deployer image allows to easily automate tasks related to deploying a
