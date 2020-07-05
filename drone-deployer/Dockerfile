@@ -1,10 +1,12 @@
 FROM alpine:3.10.3
 
-LABEL maintainer="Ben Cessa <ben@pixative.com>"
+ARG VERSION
+ARG DOCKER_CLI_VERSION="19.03.8"
+ARG HELM_VERSION="3.2.4"
+ARG KUBECTL_VERSION="1.18.5"
 
-ARG DOCKER_CLI_VERSION="18.09.9"
-ARG HELM_VERSION="3.0.2"
-ARG KUBECTL_VERSION="1.16.2"
+LABEL maintainer="Ben Cessa <ben@pixative.com>"
+LABEL version=${VERSION}
 
 # helm
 RUN \
@@ -19,8 +21,7 @@ RUN \
 RUN \
   wget https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
   chmod +x kubectl && \
-  mv kubectl /usr/local/bin/. && \
-  chown root:root /usr/local/bin/helm
+  mv kubectl /usr/local/bin/.
 
 # docker client
 RUN \
