@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-IMAGE_REGISTRY=brykio
+IMAGE_REGISTRY=docker.pkg.github.com/bryk-io/base-images
 
 # Build all images by default
 if [ -z "$1" ]; then

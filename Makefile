@@ -1,7 +1,5 @@
 .PHONY: *
 .DEFAULT_GOAL := help
-DOCKER_IMAGE=drone-deployer
-VERSION_TAG=0.1.1
 
 ## help: Prints this help message
 help:
