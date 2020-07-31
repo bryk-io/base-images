@@ -12,6 +12,7 @@ ENV \
   UID=10001
 
 RUN \
-  adduser -h /home/${USER} -g "container-user" -s /bin/sh -D -u 10001 ${USER} ${USER}
+  adduser -h /home/${USER} -g "container-user" -s /bin/sh -D -u 10001 ${USER} ${USER} && \
+  mkdir -p /usr/local/bin
 
 USER guest:guest

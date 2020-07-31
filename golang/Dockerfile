@@ -1,8 +1,9 @@
-FROM golang:1.14-buster
+FROM golang:1.14.5
 
 ARG VERSION
 ARG HELM_VERSION="3.2.4"
 ARG GOLANGCI_VERSION="1.28.0"
+ARG NANCY_VERSION="0.3.1"
 
 LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
@@ -38,6 +39,9 @@ RUN \
   wget https://github.com/golangci/golangci-lint/releases/download/v${GOLANGCI_VERSION}/golangci-lint-${GOLANGCI_VERSION}-linux-amd64.tar.gz && \
   tar xvzf golangci-lint-${GOLANGCI_VERSION}-linux-amd64.tar.gz && \
   mv golangci-lint-${GOLANGCI_VERSION}-linux-amd64/golangci-lint . && \
+  # Install nancy
+  wget https://github.com/sonatype-nexus-community/nancy/releases/download/v${NANCY_VERSION}/nancy-linux.amd64-v${NANCY_VERSION} -O /usr/local/bin/nancy && \
+  chmod +x /usr/local/bin/nancy && \
   # Cleanup
   rm -rf *.tar.gz *linux-amd64*
 
