@@ -1,4 +1,4 @@
-FROM golang:1.14.5
+FROM golang:1.15.1
 
 # Optional tools required to autogenerate RPC client and server
 # implementations for different languages. Example:
@@ -19,14 +19,17 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  PROTOBUF_VERSION=3.12.3 \
-  BUF_VERSION=0.20.2 \
-  GRPC_GATEWAY_VERSION=1.14.6 \
-  GRPC_WEB_VERSION=1.0.7 \
-  YARPC_VERSION=1.45.0 \
-  TWIRP_VERSION=5.10.2 \
-  GRPCURL_VERSION=1.6.0 \
-  GHZ_VERSION=0.55.0
+  PROTOBUF_VERSION=3.13.0 \
+  BUF_VERSION=0.23.0 \
+  GRPC_GATEWAY_VERSION=1.14.8 \
+  GRPC_WEB_VERSION=1.2.1 \
+  YARPC_VERSION=1.47.1 \
+  TWIRP_VERSION=5.12.1 \
+  GRPCURL_VERSION=1.7.0 \
+  GHZ_VERSION=0.59.0 \
+  PROTOC_GEN_GO=1.25.0 \
+  PROTOC_GEN_GOVALIDATORS=0.3.2 \
+  PROTOC_GEN_GO_GRPC=1.31.1
 
 # Dependencies
 RUN \
@@ -54,14 +57,22 @@ RUN \
   curl -sSL \
     "https://github.com/bufbuild/buf/releases/download/v${BUF_VERSION}/buf-$(uname -s)-$(uname -m).tar.gz" | tar -xvzf - -C "/usr/local" --strip-components 1
 
-# Base plugins and tools.
 # protoc-gen-go
-# protoc-gen-go-grpc
+RUN \
+  GO111MODULE="on" go get google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOC_GEN_GO}
+
 # protoc-gen-govalidators
 RUN \
-  go get google.golang.org/protobuf/cmd/protoc-gen-go && \
-  go get google.golang.org/grpc/cmd/protoc-gen-go-grpc && \
-  go get github.com/mwitkow/go-proto-validators/protoc-gen-govalidators
+  GO111MODULE="on" go get github.com/mwitkow/go-proto-validators/protoc-gen-govalidators@v${PROTOC_GEN_GOVALIDATORS}
+
+# protoc-gen-go-grpc
+RUN \
+  cd $HOME && \
+  git clone -b v${PROTOC_GEN_GO_GRPC} https://github.com/grpc/grpc-go && \
+  cd grpc-go/cmd/protoc-gen-go-grpc && \
+  go build -i -v . && \
+  mv protoc-gen-go-grpc /go/bin/. && \
+  cd $GOPATH
 
 ## grpcurl
 RUN \
