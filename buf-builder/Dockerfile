@@ -1,4 +1,4 @@
-FROM golang:1.15.1
+FROM golang:1.15.2
 
 # Optional tools required to autogenerate RPC client and server
 # implementations for different languages. Example:
@@ -20,8 +20,8 @@ LABEL version=${VERSION}
 
 ENV \
   PROTOBUF_VERSION=3.13.0 \
-  BUF_VERSION=0.23.0 \
-  GRPC_GATEWAY_VERSION=1.14.8 \
+  BUF_VERSION=0.24.0 \
+  GRPC_GATEWAY_VERSION=1.15.0 \
   GRPC_WEB_VERSION=1.2.1 \
   YARPC_VERSION=1.47.1 \
   TWIRP_VERSION=5.12.1 \
@@ -29,7 +29,7 @@ ENV \
   GHZ_VERSION=0.59.0 \
   PROTOC_GEN_GO=1.25.0 \
   PROTOC_GEN_GOVALIDATORS=0.3.2 \
-  PROTOC_GEN_GO_GRPC=1.31.1
+  PROTOC_GEN_GO_GRPC=1.0.0
 
 # Dependencies
 RUN \
@@ -67,12 +67,7 @@ RUN \
 
 # protoc-gen-go-grpc
 RUN \
-  cd $HOME && \
-  git clone -b v${PROTOC_GEN_GO_GRPC} https://github.com/grpc/grpc-go && \
-  cd grpc-go/cmd/protoc-gen-go-grpc && \
-  go build -i -v . && \
-  mv protoc-gen-go-grpc /go/bin/. && \
-  cd $GOPATH
+  GO111MODULE="on" go get google.golang.org/grpc/cmd/protoc-gen-go-grpc@v${PROTOC_GEN_GO_GRPC}
 
 ## grpcurl
 RUN \
