@@ -28,7 +28,7 @@ ENV \
   GRPCURL_VERSION=1.7.0 \
   GHZ_VERSION=0.59.0 \
   PROTOC_GEN_GO=1.25.0 \
-  PROTOC_GEN_GOVALIDATORS=0.3.2 \
+  PROTOC_GEN_VALIDATE=0.4.1 \
   PROTOC_GEN_GO_GRPC=1.0.0
 
 # Dependencies
@@ -61,15 +61,15 @@ RUN \
 RUN \
   GO111MODULE="on" go get google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOC_GEN_GO}
 
-# protoc-gen-govalidators
+# protoc-gen-validate
 RUN \
-  GO111MODULE="on" go get github.com/mwitkow/go-proto-validators/protoc-gen-govalidators@v${PROTOC_GEN_GOVALIDATORS}
+  GO111MODULE="on" go get github.com/envoyproxy/protoc-gen-validate@v${PROTOC_GEN_VALIDATE}
 
 # protoc-gen-go-grpc
 RUN \
   GO111MODULE="on" go get google.golang.org/grpc/cmd/protoc-gen-go-grpc@v${PROTOC_GEN_GO_GRPC}
 
-## grpcurl
+# grpcurl
 RUN \
   curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_VERSION}/grpcurl_${GRPCURL_VERSION}_linux_x86_64.tar.gz" -o grpcurl.tgz && \
   tar -xvzf grpcurl.tgz && \
