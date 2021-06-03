@@ -1,4 +1,4 @@
-FROM golang:1.15.2
+FROM golang:1.16.4
 
 # Optional tools required to autogenerate RPC client and server
 # implementations for different languages. Example:
@@ -19,16 +19,16 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=0.40.0 \
-  PROTOBUF_VERSION=3.15.6 \
+  BUF_VERSION=0.43.2 \
+  PROTOBUF_VERSION=3.17.2 \
   GRPC_GATEWAY_VERSION=1.16.0 \
   GRPC_WEB_VERSION=1.2.1 \
-  YARPC_VERSION=1.52.0 \
-  TWIRP_VERSION=7.1.1 \
-  GRPCURL_VERSION=1.8.0 \
-  GHZ_VERSION=0.92.0 \
+  YARPC_VERSION=1.54.0 \
+  TWIRP_VERSION=8.0.0 \
+  GRPCURL_VERSION=1.8.1 \
+  GHZ_VERSION=0.95.0 \
   PROTOC_GEN_GO=1.26.0 \
-  PROTOC_GEN_VALIDATE=0.5.0 \
+  PROTOC_GEN_VALIDATE=0.6.1 \
   PROTOC_GEN_GO_GRPC=1.1.0
 
 # Dependencies
@@ -113,11 +113,7 @@ RUN \
 
 # Twirp
 RUN \
-  git clone --depth 1 -b v${TWIRP_VERSION} https://github.com/twitchtv/twirp.git /go/src/github.com/twitchtv/twirp && \
-  cd /go/src/github.com/twitchtv/twirp && \
-  go install ./protoc-gen-twirp ./protoc-gen-twirp_python && \
-  mv /go/bin/protoc-gen-twirp* /usr/local/bin/ && \
-  rm -rf /go/src/github.com/twitchtv
+  GO111MODULE="on" go get github.com/twitchtv/twirp/protoc-gen-twirp@v${TWIRP_VERSION}
 
 # gRPC Python tools
 RUN \
