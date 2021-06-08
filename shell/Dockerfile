@@ -1,4 +1,4 @@
-FROM busybox:1.32
+FROM busybox:stable
 
 ARG VERSION
 
