@@ -21,6 +21,7 @@ LABEL version=${VERSION}
 ENV \
   BUF_VERSION=0.43.2 \
   PROTOBUF_VERSION=3.17.2 \
+  DRPC=0.0.23 \
   GRPC_GATEWAY_VERSION=1.16.0 \
   GRPC_WEB_VERSION=1.2.1 \
   YARPC_VERSION=1.54.0 \
@@ -68,6 +69,10 @@ RUN \
 # protoc-gen-go-grpc
 RUN \
   GO111MODULE="on" go get google.golang.org/grpc/cmd/protoc-gen-go-grpc@v${PROTOC_GEN_GO_GRPC}
+
+# protoc-gen-go-drpc
+RUN \
+  GO111MODULE="on" go get storj.io/drpc/cmd/protoc-gen-go-drpc@v${DRPC}
 
 # grpcurl
 RUN \
