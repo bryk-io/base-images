@@ -1,4 +1,4 @@
-FROM golang:1.16.4
+FROM golang:1.16.6
 
 # Optional tools required to autogenerate RPC client and server
 # implementations for different languages. Example:
@@ -19,16 +19,16 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=0.43.2 \
-  PROTOBUF_VERSION=3.17.2 \
-  DRPC=0.0.23 \
+  BUF_VERSION=0.44.0 \
+  PROTOBUF_VERSION=3.17.3 \
+  DRPC=0.0.24 \
   GRPC_GATEWAY_VERSION=1.16.0 \
   GRPC_WEB_VERSION=1.2.1 \
-  YARPC_VERSION=1.54.0 \
-  TWIRP_VERSION=8.0.0 \
-  GRPCURL_VERSION=1.8.1 \
-  GHZ_VERSION=0.95.0 \
-  PROTOC_GEN_GO=1.26.0 \
+  YARPC_VERSION=1.56.0 \
+  TWIRP_VERSION=8.1.0 \
+  GRPCURL_VERSION=1.8.2 \
+  GHZ_VERSION=0.96.0 \
+  PROTOC_GEN_GO=1.27.1 \
   PROTOC_GEN_VALIDATE=0.6.1 \
   PROTOC_GEN_GO_GRPC=1.1.0
 
