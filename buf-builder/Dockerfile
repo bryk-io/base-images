@@ -19,7 +19,7 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=0.44.0 \
+  BUF_VERSION=0.46.0 \
   PROTOBUF_VERSION=3.17.3 \
   DRPC=0.0.24 \
   GRPC_GATEWAY_VERSION=1.16.0 \
