@@ -29,6 +29,7 @@ ENV \
   GRPCURL_VERSION=1.8.2 \
   GHZ_VERSION=0.96.0 \
   PROTOC_GEN_GO=1.27.1 \
+  PROTOC_GEN_ENT=0.1.0 \
   PROTOC_GEN_VALIDATE=0.6.1 \
   PROTOC_GEN_GO_GRPC=1.1.0
 
@@ -60,19 +61,23 @@ RUN \
 
 # protoc-gen-go
 RUN \
-  GO111MODULE="on" go get google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOC_GEN_GO}
+  go install google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOC_GEN_GO}
 
 # protoc-gen-validate
 RUN \
-  GO111MODULE="on" go get github.com/envoyproxy/protoc-gen-validate@v${PROTOC_GEN_VALIDATE}
+  go install github.com/envoyproxy/protoc-gen-validate@v${PROTOC_GEN_VALIDATE}
 
 # protoc-gen-go-grpc
 RUN \
-  GO111MODULE="on" go get google.golang.org/grpc/cmd/protoc-gen-go-grpc@v${PROTOC_GEN_GO_GRPC}
+  go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v${PROTOC_GEN_GO_GRPC}
 
 # protoc-gen-go-drpc
 RUN \
-  GO111MODULE="on" go get storj.io/drpc/cmd/protoc-gen-go-drpc@v${DRPC}
+  go install storj.io/drpc/cmd/protoc-gen-go-drpc@v${DRPC}
+
+# protoc-gen-ent
+RUN \
+  go install entgo.io/contrib/entproto/cmd/protoc-gen-ent@v${PROTOC_GEN_ENT}
 
 # grpcurl
 RUN \
@@ -112,13 +117,13 @@ RUN \
 RUN \
   git clone --depth 1 -b v${YARPC_VERSION} https://github.com/yarpc/yarpc-go.git /go/src/go.uber.org/yarpc && \
   cd /go/src/go.uber.org/yarpc && \
-  GO111MODULE=on go install ./encoding/protobuf/protoc-gen-yarpc-go && \
+  go install ./encoding/protobuf/protoc-gen-yarpc-go && \
   mv /go/bin/protoc-gen-yarpc-go /usr/local/bin/ && \
   rm -rf /go/src/go.uber.org
 
 # Twirp
 RUN \
-  GO111MODULE="on" go get github.com/twitchtv/twirp/protoc-gen-twirp@v${TWIRP_VERSION}
+  go install github.com/twitchtv/twirp/protoc-gen-twirp@v${TWIRP_VERSION}
 
 # gRPC Python tools
 RUN \
