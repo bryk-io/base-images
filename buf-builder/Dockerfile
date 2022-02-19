@@ -19,18 +19,18 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=1.0.0-rc10 \
-  PROTOBUF_VERSION=3.19.2 \
-  DRPC=0.0.26 \
-  GRPC_GATEWAY_VERSION=1.16.0 \
-  GRPC_WEB_VERSION=1.2.1 \
-  YARPC_VERSION=1.56.0 \
-  TWIRP_VERSION=8.1.0 \
-  GRPCURL_VERSION=1.8.5 \
-  GHZ_VERSION=0.105.0 \
+  BUF_VERSION=1.0.0 \
+  PROTOBUF_VERSION=3.19.4 \
+  DRPC=0.0.29 \
+  GRPC_GATEWAY_VERSION=2.7.3 \
+  GRPC_WEB_VERSION=1.3.1 \
+  YARPC_VERSION=1.60.0 \
+  TWIRP_VERSION=8.1.1 \
+  GRPCURL_VERSION=1.8.6 \
+  GHZ_VERSION=0.106.1 \
   PROTOC_GEN_GO=1.27.1 \
   PROTOC_GEN_ENT=0.2.0 \
-  PROTOC_GEN_VALIDATE=0.6.2 \
+  PROTOC_GEN_VALIDATE=0.6.3 \
   PROTOC_GEN_GO_GRPC=1.2.0
 
 # Dependencies
@@ -98,14 +98,8 @@ RUN \
 
 # gRPC Gateway
 RUN \
-  curl -sSL \
-  https://github.com/grpc-ecosystem/grpc-gateway/releases/download/v${GRPC_GATEWAY_VERSION}/protoc-gen-grpc-gateway-v${GRPC_GATEWAY_VERSION}-linux-x86_64 \
-  -o /usr/local/bin/protoc-gen-grpc-gateway && \
-  curl -sSL \
-  https://github.com/grpc-ecosystem/grpc-gateway/releases/download/v${GRPC_GATEWAY_VERSION}/protoc-gen-swagger-v${GRPC_GATEWAY_VERSION}-linux-x86_64 \
-  -o /usr/local/bin/protoc-gen-swagger && \
-  chmod +x /usr/local/bin/protoc-gen-grpc-gateway && \
-  chmod +x /usr/local/bin/protoc-gen-swagger
+  go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v${GRPC_GATEWAY_VERSION} && \
+  go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@v${GRPC_GATEWAY_VERSION}
 
 # gRPC Web
 RUN \
