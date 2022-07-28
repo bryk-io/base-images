@@ -1,4 +1,4 @@
-FROM golang:1.18.1
+FROM golang:1.18.4
 
 # Optional tools required to autogenerate RPC client and server
 # implementations for different languages. Example:
@@ -19,17 +19,17 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=1.5.0 \
-  PROTOBUF_VERSION=3.20.1 \
-  DRPC=0.0.30 \
-  GRPC_GATEWAY_VERSION=2.10.2 \
+  BUF_VERSION=1.7.0 \
+  PROTOBUF_VERSION=21.4 \
+  DRPC=0.0.32 \
+  GRPC_GATEWAY_VERSION=2.11.0 \
   GRPC_WEB_VERSION=1.3.1 \
-  YARPC_VERSION=1.60.0 \
-  TWIRP_VERSION=8.1.1 \
+  YARPC_VERSION=1.62.0 \
+  TWIRP_VERSION=8.1.2 \
   GRPCURL_VERSION=1.8.6 \
-  GHZ_VERSION=0.106.1 \
-  PROTOC_GEN_GO=1.28.0 \
-  PROTOC_GEN_ENT=0.2.0 \
+  GHZ_VERSION=0.109.0 \
+  PROTOC_GEN_GO=1.28.1 \
+  PROTOC_GEN_ENT=0.3.0 \
   PROTOC_GEN_VALIDATE=0.6.7 \
   PROTOC_GEN_GO_GRPC=1.2.0
 
@@ -72,6 +72,7 @@ RUN \
   go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v${PROTOC_GEN_GO_GRPC}
 
 # protoc-gen-go-drpc
+# https://github.com/storj/drpc
 RUN \
   go install storj.io/drpc/cmd/protoc-gen-go-drpc@v${DRPC}
 
