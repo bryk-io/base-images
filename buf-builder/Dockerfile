@@ -1,4 +1,4 @@
-FROM golang:1.19
+FROM golang:1.20
 
 # Optional tools required to autogenerate RPC client and server
 # implementations for different languages. Example:
@@ -19,8 +19,8 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=1.11.0 \
-  PROTOBUF_VERSION=21.12 \
+  BUF_VERSION=1.15.1 \
+  PROTOBUF_VERSION=22.2 \
   DRPC=0.0.32 \
   GRPC_GATEWAY_VERSION=2.12.0 \
   GRPC_WEB_VERSION=1.4.2 \
@@ -28,10 +28,10 @@ ENV \
   TWIRP_VERSION=8.1.3 \
   GRPCURL_VERSION=1.8.7 \
   GHZ_VERSION=0.110.0 \
-  PROTOC_GEN_GO=1.28.1 \
-  PROTOC_GEN_ENT=0.3.4 \
+  PROTOC_GEN_GO=1.29.1 \
+  PROTOC_GEN_ENT=0.3.5 \
   PROTOC_GEN_VALIDATE=0.9.1 \
-  PROTOC_GEN_GO_GRPC=1.2.0
+  PROTOC_GEN_GO_GRPC=1.3.0
 
 # Dependencies
 RUN \
@@ -79,7 +79,8 @@ RUN \
 # protoc-gen-ent
 # https://github.com/ent/contrib/tree/master/entproto/cmd/protoc-gen-ent
 RUN \
-  go install entgo.io/contrib/entproto/cmd/protoc-gen-ent@v${PROTOC_GEN_ENT}
+  go install entgo.io/contrib/entproto/cmd/protoc-gen-ent@v${PROTOC_GEN_ENT} && \
+  go install entgo.io/contrib/entproto/cmd/protoc-gen-entgrpc@v${PROTOC_GEN_ENT}
 
 # grpcurl
 RUN \
