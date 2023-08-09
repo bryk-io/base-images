@@ -20,33 +20,33 @@ LABEL version=${VERSION}
 
 ENV \
   BUF_VERSION=1.17.0 \
-  PROTOBUF_VERSION=22.3 \
-  DRPC=0.0.32 \
+  PROTOBUF_VERSION=24.0 \
+  DRPC=0.0.33 \
   GRPC_GATEWAY_VERSION=2.15.2 \
   GRPC_WEB_VERSION=1.4.2 \
   YARPC_VERSION=1.68.0 \
   TWIRP_VERSION=8.1.3 \
   GRPCURL_VERSION=1.8.7 \
   GHZ_VERSION=0.115.0 \
-  PROTOC_GEN_GO=1.30.0 \
-  PROTOC_GEN_ENT=0.4.4 \
-  PROTOC_GEN_VALIDATE=1.0.0 \
+  PROTOC_GEN_GO=1.31.0 \
+  PROTOC_GEN_ENT=0.4.5 \
+  PROTOC_GEN_VALIDATE=1.0.2 \
   PROTOC_GEN_GO_GRPC=1.3.0
 
 # Dependencies
 RUN \
   apt update && \
   apt install -y \
-    git-core \
-    unzip && \
+  git-core \
+  unzip && \
   rm -rf /var/lib/apt/lists/*
 
 # protoc and libraries
 RUN \
   mkdir -p /tmp/protoc && \
   curl -sSL \
-    "https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip" \
-    -o /tmp/protoc/protoc.zip && \
+  "https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip" \
+  -o /tmp/protoc/protoc.zip && \
   cd /tmp/protoc && \
   unzip protoc.zip && \
   mv /tmp/protoc/include /usr/local/include && \
@@ -57,7 +57,7 @@ RUN \
 # buf
 RUN \
   curl -sSL \
-    "https://github.com/bufbuild/buf/releases/download/v${BUF_VERSION}/buf-$(uname -s)-$(uname -m).tar.gz" | tar -xvzf - -C "/usr/local" --strip-components 1
+  "https://github.com/bufbuild/buf/releases/download/v${BUF_VERSION}/buf-$(uname -s)-$(uname -m).tar.gz" | tar -xvzf - -C "/usr/local" --strip-components 1
 
 # protoc-gen-go
 RUN \
@@ -125,46 +125,46 @@ RUN \
 # gRPC Python tools
 RUN \
   if [ -n "${WITH_PYTHON}" ]; then \
-    apt update && \
-    apt install -y python3-dev python3-pip && \
-    pip3 install grpcio grpcio-tools && \
-    rm -rf /var/lib/apt/lists/* \
+  apt update && \
+  apt install -y python3-dev python3-pip && \
+  pip3 install grpcio grpcio-tools && \
+  rm -rf /var/lib/apt/lists/* \
   ;fi
 
 # gRPC PHP tools
 RUN \
   if [ -n "${WITH_PHP}" ]; then \
-    apt update && \
-    apt install -y php7.3 php7.3-dev php-pear phpunit libz-dev && \
-    pecl install protobuf grpc && \
-    git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc && \
-    cd grpc && \
-    git submodule update --init && \
-    make grpc_php_plugin && \
-    mv bins/opt/grpc_php_plugin /usr/local/bin/grpc_php_plugin && \
-    chmod +x /usr/local/bin/grpc_php_plugin && \
-    cd .. && \
-    rm -rf grpc && \
-    rm -rf /var/lib/apt/lists/* \
+  apt update && \
+  apt install -y php7.3 php7.3-dev php-pear phpunit libz-dev && \
+  pecl install protobuf grpc && \
+  git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc && \
+  cd grpc && \
+  git submodule update --init && \
+  make grpc_php_plugin && \
+  mv bins/opt/grpc_php_plugin /usr/local/bin/grpc_php_plugin && \
+  chmod +x /usr/local/bin/grpc_php_plugin && \
+  cd .. && \
+  rm -rf grpc && \
+  rm -rf /var/lib/apt/lists/* \
   ;fi
 
 # gRPC Ruby tools
 RUN \
   if [ -n "${WITH_RUBY}" ]; then \
-    apt update && \
-    apt install -y ruby-dev && \
-    gem install grpc grpc-tools && \
-    rm -rf /var/lib/apt/lists/* \
+  apt update && \
+  apt install -y ruby-dev && \
+  gem install grpc grpc-tools && \
+  rm -rf /var/lib/apt/lists/* \
   ;fi
 
 # Typescript
 # https://github.com/improbable-eng/ts-protoc-gen
 RUN \
   if [ -n "${WITH_TYPESCRIPT}" ]; then \
-    apt update && \
-    apt install -y nodejs npm && \
-    npm install -g ts-protoc-gen && \
-    rm -rf /var/lib/apt/lists/* \
+  apt update && \
+  apt install -y nodejs npm && \
+  npm install -g ts-protoc-gen && \
+  rm -rf /var/lib/apt/lists/* \
   ;fi
 
 # Set base working directory
