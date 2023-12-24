@@ -1,4 +1,4 @@
-FROM golang:1.20
+FROM golang:1.21
 
 # Optional tools required to autogenerate RPC client and server
 # implementations for different languages. Example:
@@ -19,16 +19,16 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=1.17.0 \
-  PROTOBUF_VERSION=24.0 \
+  BUF_VERSION=1.28.1 \
+  PROTOBUF_VERSION=25.1 \
   DRPC=0.0.33 \
-  GRPC_GATEWAY_VERSION=2.15.2 \
-  GRPC_WEB_VERSION=1.4.2 \
-  YARPC_VERSION=1.68.0 \
+  GRPC_GATEWAY_VERSION=2.18.1 \
+  GRPC_WEB_VERSION=1.5.0 \
+  YARPC_VERSION=1.71.0 \
   TWIRP_VERSION=8.1.3 \
-  GRPCURL_VERSION=1.8.7 \
-  GHZ_VERSION=0.115.0 \
-  PROTOC_GEN_GO=1.31.0 \
+  GRPCURL_VERSION=1.8.9 \
+  GHZ_VERSION=0.117.0 \
+  PROTOC_GEN_GO=1.32.0 \
   PROTOC_GEN_ENT=0.4.5 \
   PROTOC_GEN_VALIDATE=1.0.2 \
   PROTOC_GEN_GO_GRPC=1.3.0
@@ -60,14 +60,17 @@ RUN \
   "https://github.com/bufbuild/buf/releases/download/v${BUF_VERSION}/buf-$(uname -s)-$(uname -m).tar.gz" | tar -xvzf - -C "/usr/local" --strip-components 1
 
 # protoc-gen-go
+# https://github.com/protocolbuffers/protobuf-go/releases
 RUN \
   go install google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOC_GEN_GO}
 
 # protoc-gen-validate
+# https://github.com/bufbuild/protoc-gen-validate/releases
 RUN \
   go install github.com/envoyproxy/protoc-gen-validate@v${PROTOC_GEN_VALIDATE}
 
 # protoc-gen-go-grpc
+# https://github.com/grpc/grpc-go
 RUN \
   go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v${PROTOC_GEN_GO_GRPC}
 
@@ -83,6 +86,7 @@ RUN \
   go install entgo.io/contrib/entproto/cmd/protoc-gen-entgrpc@v${PROTOC_GEN_ENT}
 
 # grpcurl
+# https://github.com/fullstorydev/grpcurl/releases
 RUN \
   curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_VERSION}/grpcurl_${GRPCURL_VERSION}_linux_x86_64.tar.gz" -o grpcurl.tgz && \
   tar -xvzf grpcurl.tgz && \
@@ -91,6 +95,7 @@ RUN \
   rm LICENSE grpcurl.tgz
 
 # ghz
+# https://github.com/bojand/ghz/releases
 RUN \
   curl -sSL https://github.com/bojand/ghz/releases/download/v${GHZ_VERSION}/ghz-linux-x86_64.tar.gz -o ghz.tgz && \
   tar -xvzf ghz.tgz && \
@@ -99,6 +104,7 @@ RUN \
   mv ghz* /usr/local/bin/.
 
 # gRPC Gateway
+# https://github.com/grpc-ecosystem/grpc-gateway/releases
 RUN \
   go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v${GRPC_GATEWAY_VERSION} && \
   go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@v${GRPC_GATEWAY_VERSION}
@@ -111,6 +117,7 @@ RUN \
   chmod +x /usr/local/bin/protoc-gen-grpc-web
 
 # YARPC
+# https://github.com/yarpc/yarpc-go/releases
 RUN \
   git clone --depth 1 -b v${YARPC_VERSION} https://github.com/yarpc/yarpc-go.git /go/src/go.uber.org/yarpc && \
   cd /go/src/go.uber.org/yarpc && \
@@ -119,6 +126,7 @@ RUN \
   rm -rf /go/src/go.uber.org
 
 # Twirp
+# https://github.com/twitchtv/twirp/releases
 RUN \
   go install github.com/twitchtv/twirp/protoc-gen-twirp@v${TWIRP_VERSION}
 
