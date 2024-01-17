@@ -1,5 +1,5 @@
 {
-  "name": "Go 1.21",
+  "name": "Rust 1.75.0",
   // official list of images:
   // https://github.com/devcontainers/images
   "image": "mcr.microsoft.com/devcontainers/base:debian",
@@ -17,9 +17,9 @@
       "gid": "1000",
       "upgradePackages": "false"
     },
-    "ghcr.io/devcontainers/features/go:1": {
-      "version": "1.21.6",
-      "golangciLintVersion": "1.54.2"
+    "ghcr.io/devcontainers/features/rust:1": {
+      "version": "1.75.0",
+      "profile": "minimal"
     },
     "ghcr.io/devcontainers/features/github-cli:1": {
       "version": "latest"
@@ -30,9 +30,7 @@
       "minikube": "none"
     },
     // custom features
-    "ghcr.io/bryk-io/devcontainers-features/live-share:1": {},
-    "ghcr.io/bryk-io/devcontainers-features/graphql-tools:1": {},
-    "ghcr.io/bryk-io/devcontainers-features/protobuf-tools:1.28.1": {}
+    "ghcr.io/bryk-io/devcontainers-features/live-share:1": {}
     // "ghcr.io/devcontainers/features/docker-in-docker:1": {
     //     "version": "latest",
     //     "moby": true
@@ -43,13 +41,6 @@
   },
   "customizations": {
     "vscode": {
-      "settings": {
-        "go.useLanguageServer": true,
-        "go.gopath": "/go",
-        "protoc": {
-          "options": ["--proto_path=${workspaceRoot}/proto"]
-        }
-      },
       "extensions": [
         "rangav.vscode-thunder-client",
         "spmeesseman.vscode-taskexplorer",
