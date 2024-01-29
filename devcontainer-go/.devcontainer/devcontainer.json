@@ -30,9 +30,10 @@
       "minikube": "none"
     },
     // custom features
+    "ghcr.io/bryk-io/devcontainers-features/buf:1.29.0": {},
     "ghcr.io/bryk-io/devcontainers-features/live-share:1": {},
-    "ghcr.io/bryk-io/devcontainers-features/graphql-tools:1": {},
-    "ghcr.io/bryk-io/devcontainers-features/protobuf-tools:1.28.1": {}
+    "ghcr.io/bryk-io/devcontainers-features/gqlgen:0.17.42": {},
+    "ghcr.io/bryk-io/devcontainers-features/gqlgenc:0.16.2": {}
     // "ghcr.io/devcontainers/features/docker-in-docker:1": {
     //     "version": "latest",
     //     "moby": true
