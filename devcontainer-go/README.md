@@ -1,10 +1,10 @@
-# Go 1.21 Dev Container
+# Go Dev Container
 
 To build and publish this custom image:
 
 ```bash
 devcontainer build \
---workspace-folder devcontainer-go \
+--workspace-folder 1_21 \
 --image-name ghcr.io/bryk-io/devcontainer-go:1.21.6 \
 --push true
 ```

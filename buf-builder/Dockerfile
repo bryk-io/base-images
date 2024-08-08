@@ -1,4 +1,4 @@
-FROM golang:1.21
+FROM golang:1.22
 
 # Optional tools required to autogenerate RPC client and server
 # implementations for different languages. Example:
@@ -19,9 +19,9 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=1.29.0 \
-  DRPC=0.0.33 \
-  PROTOC_GEN_ENT=0.4.5
+  BUF_VERSION=1.34.0 \
+  DRPC=0.0.34 \
+  PROTOC_GEN_ENT=0.6.0
 
 # Dependencies
 RUN \
