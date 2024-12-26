@@ -19,7 +19,7 @@ LABEL maintainer="Ben Cessa <ben@pixative.com>"
 LABEL version=${VERSION}
 
 ENV \
-  BUF_VERSION=1.34.0 \
+  BUF_VERSION=1.48.0 \
   DRPC=0.0.34 \
   PROTOC_GEN_ENT=0.6.0
 
@@ -60,7 +60,7 @@ RUN \
 RUN \
   if [ -n "${WITH_PHP}" ]; then \
   apt update && \
-  apt install -y php7.3 php7.3-dev php-pear phpunit libz-dev && \
+  apt install -y libz-dev php-pear php7.3 php7.3-dev phpunit && \
   pecl install protobuf grpc && \
   git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc && \
   cd grpc && \
